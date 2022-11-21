@@ -7,8 +7,8 @@ const swapButton = document.querySelector("#swap");
 const rateInfo = document.querySelector("#rate");
 
 // Event listeners
-// currencyOne.addEventListener("change", calculate);
-// currencyTwo.addEventListener("change", calculate);
+currencyOne.addEventListener("change", calculate);
+currencyTwo.addEventListener("change", calculate);
 
 amountOne.addEventListener("input", calculate);
 amountTwo.addEventListener("input", (calculate));
@@ -16,8 +16,6 @@ amountTwo.addEventListener("input", (calculate));
 swapButton.addEventListener("click", swapCurrencies)
 
 populateOptions();
-// calculate();
-
 
 // Populate select with options
 function populateOptions() {
@@ -26,29 +24,22 @@ function populateOptions() {
 
     fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/codes`)
         .then(res => {
+
             if (!res.ok) {
                 throw new Error(`HTTP error: ${response.status}`);
             }
 
             return res.json()
+
         })
         .then(data => {
+
             const supportedCodes = data.supported_codes;
 
-            const fragment = document.createDocumentFragment();
+            addOptionsToSelect(supportedCodes, currencyOne);
+            addOptionsToSelect(supportedCodes, currencyTwo);
 
-            supportedCodes.forEach(code => {
-                const option = document.createElement("option");
-                option.value = code[0];
-                option.textContent = code[0];
-                fragment.appendChild(option);
-            })
-
-
-            currencyOne.appendChild(fragment);
-
-            // console.log(currencyTwo);
-            currencyTwo.appendChild(fragment);
+            calculate();
 
         })
         .catch(err => {
@@ -56,6 +47,24 @@ function populateOptions() {
         })
 
 }
+
+
+// Add options to select
+function addOptionsToSelect(currencyCodes, targetNode) {
+
+    const fragment = document.createDocumentFragment();
+
+    currencyCodes.forEach(code => {
+        const option = document.createElement("option");
+        option.value = code[0];
+        option.textContent = code[0];
+        fragment.appendChild(option);
+    })
+
+    targetNode.appendChild(fragment)
+
+}
+
 
 // Fetch exchange rates and update the DOM
 function calculate() {

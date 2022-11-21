@@ -7,8 +7,8 @@ const swapButton = document.querySelector("#swap");
 const rateInfo = document.querySelector("#rate");
 
 // Event listeners
-currencyOne.addEventListener("change", calculate);
-currencyTwo.addEventListener("change", calculate);
+// currencyOne.addEventListener("change", calculate);
+// currencyTwo.addEventListener("change", calculate);
 
 amountOne.addEventListener("input", calculate);
 amountTwo.addEventListener("input", (calculate));
@@ -16,7 +16,7 @@ amountTwo.addEventListener("input", (calculate));
 swapButton.addEventListener("click", swapCurrencies)
 
 populateOptions();
-calculate();
+// calculate();
 
 
 // Populate select with options
@@ -44,7 +44,10 @@ function populateOptions() {
                 fragment.appendChild(option);
             })
 
+
             currencyOne.appendChild(fragment);
+
+            // console.log(currencyTwo);
             currencyTwo.appendChild(fragment);
 
         })

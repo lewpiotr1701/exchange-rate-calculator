@@ -100,3 +100,6 @@ function swapCurrencies() {
     calculate();
 
 }
+
+
+console.log('duupa')
